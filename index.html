@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Circle Map</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <style>
+        /* Κάνουμε τον χάρτη να καταλαμβάνει όλο το ύψος/πλάτος */
+        html, body { margin: 0; padding: 0; height: 100%; width: 100%; }
+        #mapid { height: 100%; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div id="mapid"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+<script>
+    // **************** ΑΛΛΑΞΤΕ ΑΥΤΑ ΤΑ ΔΥΟ ****************
+    const lat = 37.265105;       // ΠΛΑΤΟΣ (Νέα θέση, κοντά στο ακίνητο)
+    const lng = 23.157958;       // ΜΗΚΟΣ (Νέα θέση, κοντά στο ακίνητο)
+    const radiusMeters = 80;  // Ακτίνα σε μέτρα
+    // ***************************************************
+    
+    // Αρχικοποίηση χάρτη
+    const mymap = L.map('mapid').setView([lat, lng], 15);
+
+    // Προσθήκη OpenStreetMap Tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(mymap);
+
+    // Προσθήκη του ΚΥΚΛΟΥ
+    L.circle([lat, lng], {
+        color: 'red',
+        fillColor: '#f03',
+        fillOpacity: 0.5,
+        radius: radiusMeters
+    }).addTo(mymap);
+
+    // Προσαρμόζει το zoom του χάρτη
+    mymap.fitBounds(L.latLng([lat, lng]).toBounds(radiusMeters * 2));
+</script>
+
+</body>
+</html>
